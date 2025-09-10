@@ -4,6 +4,8 @@ def verify_matrix(mat):  # verifica daca o matrice 3x3 este buna pentru sudoku
     number = [0 for i in range(10)]
     for i in range(3):
         for j in range(3):
+            if mat[i][j] < 1 or mat[i][j] > 9:
+                return False
             number[mat[i][j]] += 1
     for i in range(1,10):
         if number[i] != 1:
@@ -29,17 +31,22 @@ def verify_column(mat, col):  # verifica daca o coloana din matricea 9x9 este co
     return True
 
 def verify_sudoku_matrix(mat):  # pune toate conditiile intr-o singura functie
+    for i in range(9):
+        if verify_line(mat, i) == False or verify_column(mat, i) == False:
+            return False
     for i in range(3):
         for j in range(3):
-            if verify_matrix(mat[i][j]) == False:
+            bloc = [row[(j*3):(j*3)+3] for row in mat[(i*3):(i*3)+3]]
+            if not verify_matrix(bloc):
                 return False
-    for i in range(9):
-        if verify_line(mat, i) == False or verify_column(mat,i) == False:
-            return False
-    return True     
+    return True
+# Matricea trebuie sa fie de genul 9x9 vector de vector practic
 
-for i in range(3):
-    for j in range(3):
-        print(mat[i][j])
+mat = [[rd.randint(1, 9) for i in range(10)] for j in range(10)]
+
+for i in range(10):
+    for j in range(10):
+        print(mat[i][j], end = ' ')
     print("\n")
+
 print(verify_sudoku_matrix(mat))
