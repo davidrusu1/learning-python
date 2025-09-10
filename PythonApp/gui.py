@@ -8,5 +8,6 @@ window.title("Sudoku checker")
 icon = PhotoImage(file="/mnt/c/Users/david/OneDrive/Desktop/Python/learning-python/sudokuLogo.png")
 
 window.iconphoto(True, icon)
+window.config(background = "#c1edca")
 window.mainloop()  # ne apara prima fereastra pe pc si se uita la evenimente
 
