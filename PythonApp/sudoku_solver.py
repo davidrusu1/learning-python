@@ -1,4 +1,7 @@
 import random as rd
+from gui import SudokuCheckerGUI
+from tkinter import *
+import tkinter as tk
 
 def verify_matrix(mat):  # verifica daca o matrice 3x3 este buna pentru sudoku
     number = [0 for i in range(10)]
@@ -42,11 +45,11 @@ def verify_sudoku_matrix(mat):  # pune toate conditiile intr-o singura functie
     return True
 # Matricea trebuie sa fie de genul 9x9 vector de vector practic
 
-mat = [[rd.randint(1, 9) for i in range(10)] for j in range(10)]
+def main():
+    window = Tk()
+    gui = SudokuCheckerGUI(window, verify_sudoku_matrix)
+    window.mainloop()
 
-for i in range(10):
-    for j in range(10):
-        print(mat[i][j], end = ' ')
-    print("\n")
 
-print(verify_sudoku_matrix(mat))
+if __name__ == '__main__':
+    main()
