@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
 
 class SudokuCheckerGUI:
     def __init__(self, window, func):
@@ -59,17 +60,33 @@ class SudokuCheckerGUI:
         
         # Button Check
         self.button = Button(window,
-                             text='Check!',
-                             font=('Roman', 8, 'bold'),
-                             bg="#c1edca",
-                             activebackground="#56e773",
-                             relief="solid",
-                             bd=1,
-                             command=self.check)
-        self.button.place(relx=0.5, rely=0.99, anchor="s")
+                            text = 'Check!',
+                            font = ('Roman', 8, 'bold'),
+                            bg = "#c1edca",
+                            activebackground = "#56e773",
+                            relief = "solid",
+                            bd = 1,
+                            command = self.check)
+        self.button.place(relx = 0.5, rely = 0.99, anchor = "s")
+
+        self.buttonReset = Button(window,
+                                  text = 'Reset Sudoku',
+                                  font = ('Roman', 8, 'bold'),
+                                  bg = "#c1edca",
+                                  activebackground = "#56e773",
+                                  relief = "solid",
+                                  bd = 1,
+                                  command = self.resetSudoku)
+        self.buttonReset.place(relx = 0.5, rely = 0.9, anchor = "s")
     
     def limit_one_character(self, text):
         return text == "" or (len(text) <= 1 and text.isdigit())
+    
+    def resetSudoku(self):
+        for i in range(9):
+            for j in range(9):
+                self.matrix[i][j].delete(0, tk.END)
+        print("Sudoku a fost resetat!")
     
     def get_matrix_values(self):
         mat = []
@@ -88,8 +105,10 @@ class SudokuCheckerGUI:
         matrice_valori = self.get_matrix_values()
         if self.func(matrice_valori):
             print("Sudoku este valid")
+            messagebox.showinfo(title = 'Sudoku Checker', message = 'Sudoku este valid.')
         else:
             print("Sudoku este gresit")
+            messagebox.showerror(title = 'Sudoku Checker', message = 'Sudoku este gresit.')
 
     def muta_focus(self, event, i, j):
         if len(event.widget.get()) == 1:
